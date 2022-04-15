@@ -6,7 +6,7 @@
         <span class="navbar-toggler-icon"></span>
         </button>
         -->        
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$|async"> <!--<ul class="navbar-nav mr-auto" *ngIf="currentUser$ |async">--> <!--<ul class="navbar-nav mr-auto" *ngIf="loggedIn">-->
             <li class="nav-item">
             <a class="nav-link" href="#">Matches</a>
             </li>
@@ -16,9 +16,24 @@
             <li class="nav-item">
             <a class="nav-link" href="#">Messages</a>
             </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" (click)="logout()" href="#">Logout</a>
+            </li> -->
         </ul>
+
+        <div class="dropdown" *ngIf="accountService.currentUser$| async" dropdown> <!--<div class="dropdown" *ngIf="currentUser$ | async" dropdown>--> <!--<div class="dropdown" *ngIf="loggedIn" dropdown>-->
+            <a class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+            <div class="dropdown-menu mt-3" *dropdownMenu> 
+                <a class="dropdown-item">Edit Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="logout()">Logout</a>
+            </div> 
+        </div>
+        
         <!-- <form class="form-inline mt-2 mt-md-0"> -->
-        <form #loginForm="ngForm" class="form-inline mt-2 mt-md-0" (submit)="login()" autocomplete="off">
+        <!--<form #loginForm="ngForm" *ngIf="!loggedIn" class="form-inline mt-2 mt-md-0" (submit)="login()" autocomplete="off">-->
+        <!--<form #loginForm="ngForm" *ngIf="(currentUser$ | async) === null" class="form-inline mt-2 mt-md-0" (submit)="login()" autocomplete="off">-->
+        <form #loginForm="ngForm" *ngIf="(accountService.currentUser$| async) === null" class="form-inline mt-2 mt-md-0" (submit)="login()" autocomplete="off">
             <input 
                 name="username"
                 [(ngModel)]="model.username"
@@ -26,7 +41,7 @@
             
             <input 
                 name="password"
-                [(ngModel)]="model.passowrd"
+                [(ngModel)]="model.password"
                 class="form-control mr-sm-2" type="password" placeholder="Password">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
         </form>        
