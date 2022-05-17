@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {ToastrModule} from 'ngx-toastr';
+import {TabsModule} from 'ngx-bootstrap/tabs';
+import {NgxGalleryModule } from '@kolkov/ngx-gallery'
 
 
 
@@ -12,11 +14,15 @@ import {ToastrModule} from 'ngx-toastr';
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'md-toast-bottom-right'	 //chagne toast-bottom-right to md-toast-bottom-right still failed; try this later:https://plnkr.co/edit/6W9URNyyp2ItO4aUWzBB?preview
-    })
+    }),
+    TabsModule.forRoot(),
+    NgxGalleryModule 
   ],
   exports:[
     BsDropdownModule,
-    ToastrModule
+    ToastrModule,
+    TabsModule,
+    NgxGalleryModule 
   ]
 })
 export class SharedModule { }
